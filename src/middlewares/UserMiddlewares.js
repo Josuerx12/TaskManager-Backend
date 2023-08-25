@@ -61,7 +61,7 @@ function validation(req, res, next) {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       msg: "payload validation failed",
-      errors: errors.array().map((e) => e.path + ": " + e.msg),
+      errors: errors.array().map((e) => e.msg),
     });
   }
 
