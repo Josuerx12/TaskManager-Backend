@@ -23,7 +23,9 @@ async function Register(req, res) {
     });
   } catch (error) {
     console.log(error.msg);
-    return res.status(401).json({ msg: "Não foi possivel criar sua conta." });
+    return res
+      .status(401)
+      .json({ errors: "Não foi possivel criar sua conta." });
   }
 }
 
@@ -37,24 +39,22 @@ async function Login(req, res) {
     if (!validatedUser) {
       return res
         .status(401)
-        .json({ msg: "Senha incorreta, corrija e tente novamente." });
+        .json({ errors: "Senha incorreta, corrija e tente novamente." });
     }
 
     const token = jwt.sign({ name: user.name, email: user.email }, SECRET);
 
-    res
-      .status(200)
-      .json({
-        msg: "Login realizado com sucesso!",
-        token: token,
-        user: user.name,
-        email: email,
-      });
+    res.status(200).json({
+      msg: "Login realizado com sucesso!",
+      token: token,
+      user: user.name,
+      email: email,
+    });
   } catch (error) {
     console.log(error.message);
     res
       .status(401)
-      .json({ msg: "Erro ao fazer login, tente novamente mais tarde." });
+      .json({ errors: "Erro ao fazer login, tente novamente mais tarde." });
   }
 }
 
